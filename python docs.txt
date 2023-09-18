@@ -1,0 +1,11 @@
+# python scraping
+
+## environment setup
+
+### create env
+
+python -m venv my-env
+
+### activate env
+
+my-env/Scripts/Activate.ps1
