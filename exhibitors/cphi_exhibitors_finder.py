@@ -55,6 +55,7 @@ exhibitor_elements = soup.find_all("div", class_="results")
 name_col = []
 location_col = []
 country_col = []
+category_col = []
 
 for i in exhibitor_elements: 
   title = i.find("div", class_="exhibitor__title")
@@ -62,6 +63,9 @@ for i in exhibitor_elements:
   # company_type = i.find("div", class_="entity__spec")
   location = i.find("div", class_="exhibitor__h-place")
   country = i.find("div", class_="exhibitor__country")
+  category = i.find("div", class_="entity__tags")
+  # category_tags = i.find("div", class_="entity__tags").find_all("div", class_="m-tag")
+  # category = ';'.join([tag.text.strip() for tag in category_tags])
 
   if hasattr(title, "text"):
     name_col.append(title.text.strip())
@@ -71,10 +75,12 @@ for i in exhibitor_elements:
     location_col.append(location.text.strip())
   if hasattr(country, "text"):
     country_col.append(country.text.strip())
+  if hasattr(category, "text"): 
+    category_col.append(category.text.strip())
 
-data = list(zip(name_col, location_col, country_col))
+data = list(zip(name_col, location_col, country_col, category_col))
 
-df = pandas.DataFrame(data, columns= ["Company name", "Location", "Country"])
+df = pandas.DataFrame(data, columns= ["Company name", "Location", "Country", "Category"])
 
 try: 
     df.to_excel("ExhibitionData.xlsx")
